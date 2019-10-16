@@ -66,7 +66,7 @@ def preprocess_data(df):
     df = pd.concat([num_df.loc[idx], cat_df.loc[idx]], axis=1)
 
     df = pd.get_dummies(
-        df, columns=[GENDER, HAIR_COLOR, WEARS_GLASSES], drop_first=True)
+        df, columns=[GENDER, HAIR_COLOR], drop_first=True)
 
     ce_bin = ce.BinaryEncoder(cols=[PROFESSION, COUNTRY])
     df = ce_bin.fit_transform(df)
@@ -77,6 +77,7 @@ def preprocess_data(df):
 def process_data(df):
     X = df.loc[:, df.columns != INCOME]
     X = X.loc[:, X.columns != "Instance"]
+    X = X.loc[:, X.columns != WEARS_GLASSES]
     # X = X.iloc[:, 1:].values
     # X = df[[YEAR_OF_RECORD, AGE, SIZE_OF_CITY, BODY_HEIGHT]].values
     y = df[INCOME]

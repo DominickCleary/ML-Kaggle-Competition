@@ -61,7 +61,6 @@ def preprocess_data(df, is_training):
         df[BODY_HEIGHT].astype(int), downcast="unsigned")
     df[WEARS_GLASSES] = df[WEARS_GLASSES].astype(bool)
 
-    
     if is_training:
         # q = df["Income in EUR"].quantile(0.97)
         # df = df[df["Income in EUR"] < q]
@@ -80,12 +79,14 @@ def preprocess_data(df, is_training):
 def process_data(testing, training):
     X_train = training.loc[:, training.columns != INCOME]
     X_train = X_train.loc[:, X_train.columns != "Instance"]
+    X = X.loc[:, X.columns != WEARS_GLASSES]
     # X = X.iloc[:, 1:].values
     # X = df[[YEAR_OF_RECORD, AGE, SIZE_OF_CITY, BODY_HEIGHT]].values
     y_train = training[INCOME]
 
     X_test = testing.loc[:, testing.columns != INCOME]
     X_test = X_test.loc[:, X_test.columns != "Instance"]
+    X = X.loc[:, X.columns != WEARS_GLASSES]
     # print(X_test.head())
 
     # for i in range(37):
